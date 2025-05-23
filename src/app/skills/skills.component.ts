@@ -23,10 +23,16 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
 
   frontendSkills: Skill[] = [
     {
-      title: 'JAVASCRIPT',
-      levelText: 'Avanzado',
-      chartClass: 'javascript-value',
-      dataLevel: 75
+      title: 'ANGULAR',
+      levelText: 'Intermedio',
+      chartClass: 'angular-value',
+      dataLevel: 70
+    },
+    {
+      title: 'REACT',
+      levelText: 'Intermedio',
+      chartClass: 'react-value',
+      dataLevel: 65
     },
     {
       title: 'HTML & CSS',
@@ -34,15 +40,15 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
       chartClass: 'html-css-value',
       dataLevel: 90
     },
-    {
-      title: 'ANGULAR',
-      levelText: 'Intermedio',
-      chartClass: 'angular-value',
-      dataLevel: 70
-    }
   ];
 
   backendSkills: Skill[] = [
+    {
+      title: 'SPRING (Java)',
+      levelText: 'Intermedio',
+      chartClass: 'java-value',
+      dataLevel: 65
+    },
     {
       title: 'PYTHON',
       levelText: 'Competente',
@@ -50,10 +56,28 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
       dataLevel: 85
     },
     {
-      title: 'NODE.JS',
+      title: 'NODE.JS (JavaScript)',
       levelText: 'Intermedio',
       chartClass: 'nodejs-value',
       dataLevel: 70
+    },
+    {
+      title: 'SQL',
+      levelText: 'Competente',
+      chartClass: 'sql-value',
+      dataLevel: 80
+    },
+    {
+      title: 'DOCKER',
+      levelText: 'Uso Regular',
+      chartClass: 'docker-value',
+      dataLevel: 60
+    },
+    {
+      title: 'GIT',
+      levelText: 'Uso Diario',
+      chartClass: 'git-value',
+      dataLevel: 90
     }
   ];
 
@@ -120,7 +144,7 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
     if (this.currentFrontendSkillIndex < this.frontendSkills.length - 1) {
       this.currentFrontendSkillIndex++;
     } else {
-      this.currentFrontendSkillIndex = 0; 
+      this.currentFrontendSkillIndex = 0;
     }
     this.triggerAnimationForVisibleFrontendSlide();
   }
@@ -129,7 +153,7 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
     if (this.currentFrontendSkillIndex > 0) {
       this.currentFrontendSkillIndex--;
     } else {
-      this.currentFrontendSkillIndex = this.frontendSkills.length - 1; 
+      this.currentFrontendSkillIndex = this.frontendSkills.length - 1;
     }
     this.triggerAnimationForVisibleFrontendSlide();
   }
@@ -146,7 +170,7 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
   private triggerAnimationForVisibleFrontendSlide(): void {
     setTimeout(() => {
       const trackElement = this.el.nativeElement.querySelector('.frontend-carousel-track');
-      if (trackElement && trackElement.children[this.currentFrontendSkillIndex]) {
+      if (trackElement && this.frontendSkills.length > 0 && trackElement.children[this.currentFrontendSkillIndex]) {
         const visibleSlideCard = trackElement.children[this.currentFrontendSkillIndex].querySelector('.skill-card');
         if (visibleSlideCard && !this.hasAnimated.has(visibleSlideCard as HTMLElement)) {
           const chartValuePath = visibleSlideCard.querySelector('.chart-value') as SVGPathElement | null;
@@ -189,7 +213,7 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
   private triggerAnimationForVisibleBackendSlide(): void {
     setTimeout(() => {
       const trackElement = this.el.nativeElement.querySelector('.backend-carousel-track');
-      if (trackElement && trackElement.children[this.currentBackendSkillIndex]) {
+      if (trackElement && this.backendSkills.length > 0 && trackElement.children[this.currentBackendSkillIndex]) {
         const visibleSlideCard = trackElement.children[this.currentBackendSkillIndex].querySelector('.skill-card');
         if (visibleSlideCard && !this.hasAnimated.has(visibleSlideCard as HTMLElement)) {
           const chartValuePath = visibleSlideCard.querySelector('.chart-value') as SVGPathElement | null;

@@ -4,13 +4,21 @@
     --skill-title-text-color: #EAEAEA;
     --skill-group-title-color: #FFFFFF;
     --skill-main-text-color: #FFFFFF;
-    
+
     --chart-track-color: #37474F;
-    --chart-value-color-js: #FF7043;
-    --chart-value-color-python: #29B6F6;
-    --chart-value-color-html-css: #66BB6A;
-    --chart-value-color-nodejs: #FFEE58;
+
+    --chart-value-color-javascript: #F7DF1E;
+    --chart-value-color-html-css: #E44D26;
     --chart-value-color-angular: #DD0031;
+    --chart-value-color-react: #61DAFB;
+
+    --chart-value-color-python: #3776AB;
+    --chart-value-color-java: #f89820;
+    --chart-value-color-nodejs: #8CC84B;
+    --chart-value-color-sql: #00758F;
+    --chart-value-color-docker: #2496ED;
+    --chart-value-color-git: #F05033;
+
 
     --chart-stroke-width-desktop: 3;
     --chart-size-desktop: 120px;
@@ -72,7 +80,7 @@
 .backend-carousel-container {
     position: relative;
     width: 100%;
-    max-width: 380px; 
+    max-width: 380px;
     margin: 0 auto;
     overflow: hidden;
     border-radius: 16px;
@@ -96,15 +104,15 @@
 
 .frontend-carousel-slide .skill-card,
 .backend-carousel-slide .skill-card {
-    width: 100%; 
+    width: 100%;
     margin: 0 auto;
     background-color: transparent;
     box-shadow: none;
     border-radius: 0;
     padding: 0;
     min-height: 270px;
-    display: flex; 
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -155,7 +163,7 @@
 
 .carousel-dots {
     position: absolute;
-    bottom: 15px; 
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -189,13 +197,13 @@
     background-color: var(--skill-card-bg);
     border-radius: 16px;
     box-shadow: 0 8px 25px var(--skill-card-shadow);
-    max-width: 380px; 
+    max-width: 380px;
     margin: 0 auto;
 }
 
 .skill-card {
     background-color: var(--skill-card-bg);
-    border-radius: 16px; 
+    border-radius: 16px;
     padding: 20px;
     box-shadow: 0 8px 25px var(--skill-card-shadow);
     display: flex;
@@ -217,6 +225,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    line-height: 1.2;
 }
 
 .skill-chart-container {
@@ -247,10 +256,17 @@
 }
 
 .javascript-value { stroke: var(--chart-value-color-js); }
-.python-value { stroke: var(--chart-value-color-python); }
 .html-css-value { stroke: var(--chart-value-color-html-css); }
-.nodejs-value { stroke: var(--chart-value-color-nodejs); }
 .angular-value { stroke: var(--chart-value-color-angular); }
+.react-value { stroke: var(--chart-value-color-react); }
+
+.python-value { stroke: var(--chart-value-color-python); }
+.java-value { stroke: var(--chart-value-color-java); }
+.nodejs-value { stroke: var(--chart-value-color-nodejs); }
+.sql-value { stroke: var(--chart-value-color-sql); }
+.docker-value { stroke: var(--chart-value-color-docker); }
+.git-value { stroke: var(--chart-value-color-git); }
+
 
 .chart-text {
     position: absolute;
@@ -271,22 +287,18 @@
     line-height: 1.1;
 }
 
-@media (max-width: 992px) { 
-    .skill-categories-wrapper {
-        gap: 30px;
-    }
-    .skill-group-title {
-        font-size: 1.3rem;
-    }
+@media (max-width: 992px) {
+    .skill-categories-wrapper { gap: 30px; }
+    .skill-group-title { font-size: 1.3rem; }
 
     .frontend-carousel-container,
     .backend-carousel-container {
-        max-width: 340px; 
+        max-width: 340px;
         padding: 20px 15px 45px 15px;
     }
     .frontend-carousel-slide .skill-card,
     .backend-carousel-slide .skill-card {
-        min-height: 250px; 
+        min-height: 250px;
     }
     .no-skills-message { max-width: 340px; }
 
@@ -294,64 +306,43 @@
         width: var(--chart-size-tablet);
         height: var(--chart-size-tablet);
     }
-    .skill-chart path {
-        stroke-width: var(--chart-stroke-width-tablet);
-    }
+    .skill-chart path { stroke-width: var(--chart-stroke-width-tablet); }
     .skill-card-title { font-size: 0.7rem; min-height: 2em; }
     .chart-text .level-text { font-size: 1rem; }
 }
 
-@media (max-width: 768px) { 
-    .section-title {
-        font-size: 2rem;
-        margin-bottom: 30px;
-    }
-    .skill-categories-wrapper {
-        grid-template-columns: 1fr; 
-        gap: 40px;
-    }
-    .skill-group-title {
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-    }
+@media (max-width: 768px) {
+    .section-title { font-size: 2rem; margin-bottom: 30px; }
+    .skill-categories-wrapper { grid-template-columns: 1fr; gap: 40px; }
+    .skill-group-title { font-size: 1.2rem; margin-bottom: 20px; }
 
     .frontend-carousel-container,
     .backend-carousel-container {
-        max-width: 320px; 
+        max-width: 320px;
         padding: 20px 15px 40px 15px;
     }
     .no-skills-message { max-width: 320px; }
 
     .frontend-carousel-slide .skill-card,
     .backend-carousel-slide .skill-card {
-        min-height: 240px; 
+        min-height: 240px;
     }
     .carousel-nav {
-        width: 36px;
-        height: 36px;
-        font-size: 20px;
-        top: calc(50% - 20px); 
+        width: 36px; height: 36px; font-size: 20px;
+        top: calc(50% - 20px);
     }
     .carousel-nav.prev { left: 10px; }
     .carousel-nav.next { right: 10px; }
 
-    .carousel-dots { 
-        bottom: 12px; 
-        gap: 8px;
-    }
-    .dot { 
-        width: 9px;
-        height: 9px;
-    }
-    
+    .carousel-dots { bottom: 12px; gap: 8px; }
+    .dot { width: 9px; height: 9px; }
+
     .skill-chart-container {
         width: var(--chart-size-mobile);
         height: var(--chart-size-mobile);
         margin-bottom: 8px;
     }
-    .skill-chart path {
-        stroke-width: var(--chart-stroke-width-mobile);
-    }
+    .skill-chart path { stroke-width: var(--chart-stroke-width-mobile); }
     .skill-card-title { font-size: 0.65rem; min-height: 2em; margin-bottom: 12px; }
     .chart-text .level-text { font-size: 0.9rem; }
 }
@@ -360,8 +351,7 @@
     .frontend-carousel-container,
     .backend-carousel-container {
         max-width: calc(100% - 30px);
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: auto; margin-right: auto;
         padding: 15px 10px 35px 10px;
     }
     .no-skills-message { max-width: calc(100% - 30px); }
@@ -375,19 +365,15 @@
         --chart-stroke-width-mobile: 2;
     }
     .carousel-nav {
-        width: 32px;
-        height: 32px;
-        font-size: 18px;
-        top: calc(50% - 18px); 
+        width: 32px; height: 32px; font-size: 18px;
+        top: calc(50% - 18px);
     }
     .carousel-nav.prev { left: 8px; }
     .carousel-nav.next { right: 8px; }
 
     .skill-card-title { font-size: 0.6rem; }
     .chart-text .level-text { font-size: 0.8rem; }
-    .carousel-dots { 
-        bottom: 10px; 
-    }
+    .carousel-dots { bottom: 10px; }
 }
 
 @media (max-width: 360px) {
@@ -401,16 +387,11 @@
         --chart-size-mobile: 70px;
     }
     .carousel-nav {
-        width: 30px;
-        height: 30px;
-        font-size: 16px;
+        width: 30px; height: 30px; font-size: 16px;
         top: calc(50% - 15px);
     }
     .carousel-nav.prev { left: 5px; }
     .carousel-nav.next { right: 5px; }
-    .carousel-dots { 
-        bottom: 8px;
-        gap: 6px;
-    }
+    .carousel-dots { bottom: 8px; gap: 6px;}
     .dot { width: 8px; height: 8px; }
 }
