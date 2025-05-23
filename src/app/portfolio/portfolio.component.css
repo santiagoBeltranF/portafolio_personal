@@ -1,0 +1,253 @@
+/* src/app/portfolio/portfolio.component.css */
+
+:host {
+    display: block;
+    /* Asegura que el componente en sí ocupe espacio de bloque */
+    width: 100%;
+    /* Intenta ocupar todo el ancho disponible que le da su contenedor padre */
+    /* Heredar variables de color o definirlas si son específicas para portfolio */
+    --portfolio-accent-color: var(--skill-accent-color, #ff0000);
+    --portfolio-accent-color-rgb: var(--skill-accent-color-rgb, 255, 69, 0);
+    --portfolio-text-color: #E0E0E0;
+    --portfolio-title-color: #FFFFFF;
+    --portfolio-card-bg: rgba(30, 35, 42, 0.85);
+    /* Un gris azulado oscuro, ligeramente más opaco */
+    --portfolio-card-hover-bg: rgba(35, 40, 48, 0.98);
+}
+
+.portfolio-container {
+    max-width: 1250px;
+    /* Aumentar un poco el ancho máximo */
+    width: 100%;
+    margin: 0 auto;
+    /* Para centrar el contenido si el host es más ancho */
+    box-sizing: border-box;
+    color: var(--portfolio-text-color);
+    /* El padding principal de la sección viene de .page-section en app.component.css,
+       si este componente está dentro de un .page-section.
+       Si #portfolio-section tiene padding: 0, entonces .portfolio-container necesitará su propio padding.
+       Ejemplo si .portfolio-container maneja su propio padding:
+       padding: 40px 20px;
+    */
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--portfolio-title-color);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.title-underline {
+    display: block;
+    width: 70px;
+    height: 4px;
+    background-color: var(--portfolio-accent-color);
+    margin: 8px auto 0;
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--portfolio-text-color);
+    margin-bottom: 50px;
+    font-weight: 500;
+}
+
+.portfolio-grid {
+    display: grid;
+    /* Para desktop, intentamos 3 columnas. Si no caben, irá a menos. */
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    /* AUMENTADO minmax */
+    gap: 35px;
+    /* Aumentar un poco el gap */
+}
+
+.portfolio-item {
+    background-color: var(--portfolio-card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    transition: transform 0.35s ease-out, box-shadow 0.35s ease-out;
+    /* Define un aspect-ratio preferido. 16/9 es común para previews apaisadas. */
+    aspect-ratio: 16 / 10;
+    /* AJUSTA ESTO A LA PROPORCIÓN DE TUS IMÁGENES */
+    /* Si tus imágenes son más cuadradas prueba 4/3 o 1/1 */
+    /* Si son más altas prueba 3/4 */
+}
+
+.portfolio-item:hover,
+.portfolio-item:focus-within {
+    transform: translateY(-10px) scale(1.03);
+    /* Efecto hover más pronunciado */
+    box-shadow: 0 12px 30px rgba(185, 14, 14, 0.45), 0 0 25px rgba(var(--portfolio-accent-color-rgb), 0.2);
+}
+
+.portfolio-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    /* Para controlar mejor el contenido interno si es necesario */
+    flex-direction: column;
+    /* Apila imagen y overlay */
+}
+
+.portfolio-image {
+    width: 100%;
+    flex-grow: 1;
+    /* La imagen intenta tomar el espacio disponible, respetando aspect-ratio del item */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease-out;
+}
+
+.portfolio-item:hover .portfolio-image,
+.portfolio-item:focus-within .portfolio-image {
+    transform: scale(1.12);
+}
+
+.portfolio-overlay {
+    position: absolute;
+    /* Se superpone a la imagen */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(161, 37, 37, 0.95) 25%, rgba(8, 8, 8, 0.4) 60%, transparent);
+    /* Degradado ajustado */
+    padding: 20px 20px 15px;
+    /* Padding ajustado */
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.3s ease-out 0.1s, transform 0.3s ease-out 0.1s;
+    /* Pequeño delay en la transición */
+    text-align: left;
+}
+
+.portfolio-item:hover .portfolio-overlay,
+.portfolio-item:focus-within .portfolio-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.portfolio-title {
+    font-size: 1.2rem;
+    /* Ajustar tamaño */
+    color: var(--portfolio-title-color);
+    margin: 0 0 6px 0;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.portfolio-category {
+    font-size: 0.75rem;
+    /* Ajustar tamaño */
+    color: #b0b0b0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+/* --- Media Queries para Portfolio --- */
+
+
+/* Tablets medianas (donde podrían caber 2 columnas si auto-fit lo decide) */
+
+@media (max-width: 1024px) {
+    /* Ajustar este breakpoint si es necesario */
+    .portfolio-grid {
+        /* auto-fit con minmax(340px, 1fr) puede llevar a 2 columnas aquí */
+        gap: 30px;
+    }
+    .portfolio-item {
+        aspect-ratio: 4/3;
+        /* Un aspect-ratio más cuadrado podría funcionar mejor con 2 columnas */
+    }
+}
+
+
+/* Móviles Grandes y Tabletas en vertical (donde usualmente 2 columnas es lo máximo o 1) */
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.2rem;
+    }
+    .section-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 35px;
+    }
+    .portfolio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        /* Permitir 1 o 2 columnas */
+        gap: 25px;
+    }
+    .portfolio-item {
+        aspect-ratio: 16/10;
+        /* Podría ser más apaisado si hay 2 columnas, o 4/3 si hay 1 */
+    }
+    .portfolio-overlay {
+        padding: 15px;
+    }
+    .portfolio-title {
+        font-size: 1.1rem;
+    }
+    .portfolio-category {
+        font-size: 0.7rem;
+    }
+}
+
+
+/* Móviles (forzar 1 columna) */
+
+@media (max-width: 576px) {
+    .section-title {
+        font-size: 1.9rem;
+        margin-bottom: 5px;
+        padding-bottom: 8px;
+    }
+    .title-underline {
+        width: 60px;
+        height: 3px;
+        margin-top: 6px;
+    }
+    .section-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        /* UNA SOLA COLUMNA */
+        gap: 20px;
+    }
+    .portfolio-item {
+        aspect-ratio: 4/3;
+        /* O la proporción de tus imágenes */
+    }
+    .portfolio-item:hover,
+    .portfolio-item:focus-within {
+        transform: translateY(-5px) scale(1.01);
+    }
+    /* Overlay siempre visible en móvil y con un fondo más sólido */
+    .portfolio-overlay {
+        opacity: 1;
+        transform: translateY(0);
+        background: linear-gradient(to top, rgba(8, 8, 8, 0.9) 40%, rgba(8, 8, 8, 0.5) 80%, transparent);
+        padding: 12px 15px;
+    }
+    .portfolio-title {
+        font-size: 1rem;
+    }
+    .portfolio-category {
+        font-size: 0.7rem;
+    }
+}

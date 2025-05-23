@@ -1,0 +1,329 @@
+/* src/app/skills/skills.component.css */
+
+:host {
+    --skill-card-bg: #fdfcff;
+    --skill-card-shadow: rgba(150, 150, 180, 0.1);
+    --skill-title-text-color: #555a70;
+    --skill-group-title-color: #FFFFFF;
+    --skill-main-text-color: #33384f;
+    --skill-secondary-text-color: #777c92;
+    --skill-description-text-color: #656a80;
+    --chart-track-color: #e9e9ed;
+    --chart-value-color-js: #ff7675;
+    --chart-value-color-python: #74b9ff;
+    --chart-value-color-html-css: #55efc4;
+    --chart-value-color-nodejs: #fdcb6e;
+    /* Define más --chart-value-color-SKILLNAME para otros */
+    --chart-stroke-width-desktop: 3;
+    /* Grosor de línea del gráfico en desktop */
+    --chart-size-desktop: 120px;
+    /* Tamaño del gráfico en desktop */
+    --chart-stroke-width-tablet: 2.5;
+    --chart-size-tablet: 100px;
+    --chart-stroke-width-mobile: 2.2;
+    --chart-size-mobile: 90px;
+}
+
+.skills-section-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.section-title {
+    /* "Mis Habilidades" */
+    text-align: center;
+    font-size: 2.5rem;
+    /* Ajustado */
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 40px;
+    /* Reducido */
+    text-transform: uppercase;
+}
+
+.skill-categories-wrapper {
+    /* Contenedor de las columnas Frontend/Backend */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Dos columnas principales */
+    gap: 40px;
+    /* Espacio entre la columna Frontend y Backend */
+}
+
+.skill-group-column {
+    /* No necesita mucho estilo, actúa como contenedor */
+}
+
+.skill-group-title {
+    /* "Frontend Skills", "Backend Skills" */
+    font-size: 1.4rem;
+    /* Reducido */
+    font-weight: 600;
+    color: var(--skill-group-title-color);
+    margin-bottom: 25px;
+    /* Reducido */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    /* Subrayado sutil */
+    padding-bottom: 10px;
+}
+
+.skill-cards-grid {
+    /* Cuadrícula para las tarjetas DENTRO de una columna Frontend/Backend */
+    display: grid;
+    /* Permitir 2 o 3 tarjetas por fila DENTRO de la columna principal.
+       Ajustar minmax para tarjetas MÁS PEQUEÑAS. */
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    /* <<-- AJUSTE CRÍTICO */
+    /* Antes era ~260px, ahora más pequeño para que quepan varias */
+    gap: 20px;
+    /* Gap entre las tarjetas de skill */
+}
+
+.skill-card {
+    background-color: var(--skill-card-bg);
+    border-radius: 16px;
+    /* Un poco menos redondeado */
+    padding: 20px;
+    /* Padding reducido para tarjetas más pequeñas */
+    box-shadow: 0 8px 25px var(--skill-card-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-6px);
+    /* Menos elevación */
+    box-shadow: 0 12px 30px rgba(100, 100, 130, 0.2);
+    /* Sombra más sutil */
+}
+
+.skill-card-title {
+    /* Nombre de la skill (JAVASCRIPT, PYTHON) - h4 */
+    font-size: 0.75rem;
+    /* Más pequeño */
+    font-weight: 600;
+    color: var(--skill-title-text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+    /* Menos espacio */
+    min-height: 2.2em;
+    /* Para 1 o 2 líneas de título consistentes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-chart-container {
+    position: relative;
+    width: var(--chart-size-desktop);
+    /* Usar variable */
+    height: var(--chart-size-desktop);
+    margin-bottom: 15px;
+    /* Menos espacio */
+}
+
+.skill-chart {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.skill-chart path {
+    fill: none;
+    stroke-width: var(--chart-stroke-width-desktop);
+    /* Usar variable */
+    stroke-linecap: round;
+}
+
+.chart-background {
+    stroke: var(--chart-track-color);
+}
+
+.chart-value {
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.42, 0, 0.24, 1) 0.2s;
+}
+
+.javascript-value {
+    stroke: var(--chart-value-color-js);
+}
+
+.python-value {
+    stroke: var(--chart-value-color-python);
+}
+
+.html-css-value {
+    stroke: var(--chart-value-color-html-css);
+}
+
+.nodejs-value {
+    stroke: var(--chart-value-color-nodejs);
+}
+
+
+/* ... añade más para otros skills ... */
+
+.chart-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-text .level-text {
+    /* "Avanzado" */
+    font-size: 1.1rem;
+    /* Más pequeño */
+    font-weight: 700;
+    color: var(--skill-main-text-color);
+    margin-bottom: 1px;
+    line-height: 1.1;
+}
+
+.chart-text .potential-text {
+    /* "Potencial: Alto" */
+    font-size: 0.65rem;
+    /* Más pequeño */
+    color: var(--skill-secondary-text-color);
+    line-height: 1.1;
+}
+
+.skill-card-description {
+    font-size: 0.75rem;
+    /* Más pequeño */
+    color: var(--skill-description-text-color);
+    line-height: 1.4;
+    max-width: 100%;
+    /* Para que se ajuste al ancho de la tarjeta */
+    margin-top: auto;
+    /* Empuja la descripción hacia abajo si hay espacio extra */
+}
+
+
+/* --- Media Queries para Skills con Gráficos --- */
+
+@media (max-width: 992px) {
+    /* Tablets */
+    .skill-categories-wrapper {
+        /* Puede seguir siendo 2 columnas o pasar a 1 dependiendo del ancho total */
+        gap: 30px;
+    }
+    .skill-group-title {
+        font-size: 1.3rem;
+    }
+    .skill-cards-grid {
+        /* Dentro de una columna, podría ser 1 o 2 tarjetas por fila */
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        /* <<-- AJUSTE */
+        gap: 15px;
+    }
+    .skill-chart-container {
+        width: var(--chart-size-tablet);
+        height: var(--chart-size-tablet);
+    }
+    .skill-chart path {
+        stroke-width: var(--chart-stroke-width-tablet);
+    }
+    .skill-card-title {
+        font-size: 0.7rem;
+        min-height: 2em;
+    }
+    .chart-text .level-text {
+        font-size: 1rem;
+    }
+    .chart-text .potential-text {
+        font-size: 0.6rem;
+    }
+    .skill-card-description {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Móviles */
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+    .skill-categories-wrapper {
+        grid-template-columns: 1fr;
+        /* Las columnas Frontend/Backend se apilan */
+        gap: 40px;
+        /* Espacio vertical entre Frontend y Backend apilados */
+    }
+    .skill-group-title {
+        font-size: 1.2rem;
+        /* Un poco más pequeño */
+        margin-bottom: 20px;
+    }
+    .skill-cards-grid {
+        /* Dentro de una categoría (ahora columna única de pantalla)
+           podríamos querer 2 tarjetas por fila si son pequeñas */
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        /* <<-- AJUSTE */
+        gap: 15px;
+    }
+    .skill-card {
+        padding: 15px;
+        border-radius: 12px;
+    }
+    .skill-chart-container {
+        width: var(--chart-size-mobile);
+        height: var(--chart-size-mobile);
+        margin-bottom: 12px;
+    }
+    .skill-chart path {
+        stroke-width: var(--chart-stroke-width-mobile);
+    }
+    .skill-card-title {
+        font-size: 0.65rem;
+        min-height: 2em;
+        margin-bottom: 10px;
+    }
+    .chart-text .level-text {
+        font-size: 0.9rem;
+    }
+    .chart-text .potential-text {
+        font-size: 0.55rem;
+    }
+    .skill-card-description {
+        font-size: 0.7rem;
+    }
+}
+
+
+/* Ajuste para móviles muy pequeños si las tarjetas de 140px aún son muy grandes */
+
+@media (max-width: 380px) {
+    .skill-cards-grid {
+        /* Forzar una sola columna de tarjetas si son demasiado estrechas */
+        grid-template-columns: 1fr;
+    }
+     :host {
+        /* Reducir aún más el gráfico */
+        --chart-size-mobile: 80px;
+        --chart-stroke-width-mobile: 2;
+    }
+    .skill-card-title {
+        font-size: 0.6rem;
+    }
+    .chart-text .level-text {
+        font-size: 0.8rem;
+    }
+    .chart-text .potential-text {
+        font-size: 0.5rem;
+    }
+}

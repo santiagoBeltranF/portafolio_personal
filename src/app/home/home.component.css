@@ -1,0 +1,308 @@
+/* src/app/home/home.component.css */
+
+:host {
+    display: flex;
+    width: 100%;
+    min-height: inherit;
+    /* Hereda min-height de #home-section para ocupar el espacio */
+    align-items: center;
+    justify-content: center;
+}
+
+.home-hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 40px 30px;
+    gap: 60px;
+    color: #E0E0E0;
+}
+
+.hero-image-column {
+    flex: 0 0 40%;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-wrapper {
+    position: relative;
+    width: clamp(250px, 35vw, 380px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+}
+
+.profile-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.image-aura {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 108%;
+    height: 108%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: transparent;
+    box-shadow: 0 0 60px 30px rgba(255, 0, 0, 0.35), 0 0 30px 15px rgba(255, 0, 0, 0.5), 0 0 10px 5px rgba(255, 0, 0, 0.7);
+    z-index: 0;
+    animation: pulse-aura 5s infinite ease-in-out alternate;
+}
+
+@keyframes pulse-aura {
+    0% {
+        box-shadow: 0 0 50px 25px rgba(255, 0, 0, 0.3), 0 0 25px 12px rgba(255, 0, 0, 0.45), 0 0 8px 4px rgba(255, 0, 0, 0.6);
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        box-shadow: 0 0 70px 35px rgba(255, 0, 0, 0.4), 0 0 35px 18px rgba(255, 0, 0, 0.55), 0 0 12px 6px rgba(255, 0, 0, 0.75);
+        transform: translate(-50%, -50%) scale(1.03);
+    }
+}
+
+.hero-text-column {
+    flex: 1;
+    padding-left: 20px;
+    max-width: 650px;
+}
+
+.hero-text-column h1 {
+    margin: 0 0 25px 0;
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+.hero-text-column .intro-line {
+    display: block;
+    font-size: clamp(1.4rem, 2.8vw, 1.8rem);
+    color: #c0c0c0;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.hero-text-column .name-line {
+    display: block;
+    font-size: clamp(3rem, 7.5vw, 5rem);
+    color: #ff0000;
+    margin: 2px 0 5px;
+    letter-spacing: -1px;
+}
+
+.hero-text-column .title-line {
+    display: block;
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    /* Mismo tamaño que el texto del typewriter */
+    color: #E0E0E0;
+    /* Color del "I'm a " */
+    font-weight: 600;
+    /* Alinear verticalmente con el texto que se escribe */
+    display: flex;
+    /* Usar flex para alinear el "I'm a" con el texto animado */
+    align-items: baseline;
+}
+
+
+/* Estilos para el efecto Typewriter */
+
+.typewriter-text {
+    display: inline-block;
+    position: relative;
+    color: #ff0000;
+    /* Color del texto que se escribe (ej. Software Developer) */
+    font-weight: 600;
+    /* Mismo que .title-line para consistencia */
+    /* Hereda font-size de .title-line o defínelo explícitamente si es diferente */
+    font-size: inherit;
+    /* Hereda el tamaño de .title-line */
+    line-height: inherit;
+    /* Hereda el interlineado de .title-line */
+    margin-left: 0.25em;
+    /* Pequeño espacio después de "I'm a " */
+}
+
+.typewriter-target {
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: baseline;
+    /* Alinear con "I'm a" */
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    animation: blink-cursor 0.7s step-end infinite;
+    color: #ff0000;
+    margin-left: 1px;
+    /* Ajuste fino para la posición del cursor */
+    font-weight: normal;
+    /* El cursor puede ser más delgado */
+    vertical-align: baseline;
+}
+
+@keyframes blink-cursor {
+    from,
+    to {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+.hero-text-column .description {
+    font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+    line-height: 1.75;
+    color: #a0a0a0;
+    margin-bottom: 35px;
+}
+
+.social-icons-home {
+    display: flex;
+    gap: 22px;
+    margin-bottom: 40px;
+}
+
+.social-icons-home .social-icon-link {
+    color: #888888;
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.social-icons-home .social-icon-link:hover {
+    color: #ff0000;
+    transform: scale(1.15) translateY(-2px);
+}
+
+.social-icons-home .social-icon-link svg {
+    width: 26px;
+    height: 26px;
+    fill: currentColor;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #ff0000;
+    color: #FFFFFF;
+    padding: 14px 35px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 20px rgba(255, 0, 0, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cta-button:hover {
+    background-color: #e81e1e;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.45);
+}
+
+
+/* --- Media Queries para Home Hero --- */
+
+@media (max-width: 992px) {
+    /* Tablets */
+    .home-hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+        padding: 50px 25px;
+    }
+    .hero-image-column {
+        margin-bottom: 10px;
+        order: 1;
+    }
+    .image-wrapper {
+        width: clamp(220px, 55vw, 320px);
+    }
+    .hero-text-column {
+        padding-left: 0;
+        align-items: center;
+        order: 2;
+    }
+    .hero-text-column .title-line {
+        /* Para centrar el "I'm a" y el typewriter en móvil */
+        justify-content: center;
+    }
+    .hero-text-column .description {
+        max-width: 550px;
+    }
+    .social-icons-home {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Móviles */
+    .home-hero-container {
+        padding: 30px 20px;
+        gap: 30px;
+    }
+    .image-wrapper {
+        width: clamp(180px, 65vw, 260px);
+    }
+    .image-aura {
+        box-shadow: 0 0 30px 15px rgba(255, 0, 0, 0.3), 0 0 15px 7px rgba(255, 0, 0, 0.45);
+    }
+    @keyframes pulse-aura {
+        0% {
+            box-shadow: 0 0 30px 15px rgba(255, 0, 0, 0.3), 0 0 15px 7px rgba(255, 0, 0, 0.45);
+            transform: translate(-50%, -50%) scale(1);
+        }
+        100% {
+            box-shadow: 0 0 45px 20px rgba(255, 0, 0, 0.35), 0 0 20px 10px rgba(255, 0, 0, 0.5);
+            transform: translate(-50%, -50%) scale(1.02);
+        }
+    }
+    .hero-text-column h1 {
+        margin-bottom: 20px;
+    }
+    .hero-text-column .intro-line {
+        font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+    }
+    .hero-text-column .name-line {
+        font-size: clamp(2.2rem, 9vw, 3.5rem);
+    }
+    .hero-text-column .title-line {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+        /* En móvil, si el texto del typewriter es largo, podría necesitar envolverse.
+           display: block; y text-align: center; en el .typewriter-text podría ser una opción.
+           O ajustar el clamp para que la fuente sea más pequeña.
+        */
+    }
+    .typewriter-text {
+        margin-left: 0.2em;
+        /* Ajustar espacio si es necesario */
+    }
+    .hero-text-column .description {
+        font-size: clamp(0.875rem, 3vw, 1rem);
+        margin-bottom: 30px;
+    }
+    .social-icons-home {
+        gap: 18px;
+        margin-bottom: 30px;
+    }
+    .social-icons-home .social-icon-link svg {
+        width: 24px;
+        height: 24px;
+    }
+    .cta-button {
+        padding: 12px 28px;
+        font-size: clamp(0.9rem, 3vw, 1.05rem);
+        width: 80%;
+        max-width: 280px;
+    }
+}

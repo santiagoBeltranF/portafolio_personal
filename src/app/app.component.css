@@ -1,0 +1,289 @@
+/* src/app/app.component.css */
+
+:host {
+    display: block;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #080808;
+    /* FONDO PRINCIPAL NEGRO o gris muy oscuro */
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: #050505;
+    /* Fondo del header NEGRO SÓLIDO o muy oscuro */
+    /* O si quieres un ligero contraste con el fondo principal: */
+    /* background-color: rgba(15, 15, 15, 0.95); */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1001;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    /* Sombra muy sutil si el header tiene un tono ligeramente diferente al fondo */
+    /* box-shadow: 0 1px 2px rgba(255, 69, 0, 0.1); */
+}
+
+
+/* Clase para el header cuando se hace scroll (opcional, pero útil si el fondo cambia) */
+
+.app-header.scrolled {
+    background-color: #030303;
+    /* Un negro aún más sólido o el mismo */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    /* Sombra más oscura */
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff0000;
+    /* COLOR ROJO/NARANJA DE ACENTO */
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.main-nav a {
+    color: #E0E0E0;
+    /* Texto de navegación blanco/gris claro */
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    /* Un poco más de espaciado */
+    transition: color 0.3s ease;
+    cursor: pointer;
+    padding: 10px 0;
+    position: relative;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: #ff0000;
+    /* COLOR ROJO/NARANJA DE ACENTO para hover/activo */
+}
+
+.main-nav a::after {
+    /* Subrayado */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ff0000;
+    /* COLOR ROJO/NARANJA DE ACENTO para subrayado */
+    transition: width 0.3s ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+    width: 100%;
+}
+
+main {
+    /* Altura del header DESKTOP: padding (2*15px) + font-size logo (28px) + margen interno = ~70px.
+       DEBES MEDIR LA ALTURA REAL DE TU HEADER Y USAR ESE VALOR AQUÍ. */
+    padding-top: 70px;
+    /* EJEMPLO, AJUSTA ESTO PRECISAMENTE */
+    flex-grow: 1;
+    /* El background-color general ya está en .page-container */
+}
+
+.page-section {
+    min-height: 90vh;
+    padding: 60px 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border-bottom: 1px solid rgba(255, 69, 0, 0.1); /* Separador con color de acento (sutil) */
+}
+
+.page-section:last-child {
+    border-bottom: none;
+}
+
+
+/* Estilos para la sección HOME (principalmente para asegurar que el contenido interno puede ocupar todo) */
+
+#home-section {
+    min-height: calc(100vh - 70px);
+    /* AJUSTA 70px (altura del header) */
+    padding: 0;
+    /* Permitir que <app-home> controle su padding y layout interno */
+    /* justify-content: flex-start; Si quieres el contenido de home arriba y no centrado verticalmente por .page-section */
+}
+
+
+/* --- Estilos para el Menú Hamburguesa (ajustar colores) --- */
+
+.nav-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 1002;
+    width: 30px;
+    height: 22px;
+    position: relative;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #E0E0E0;
+    /* Color de las líneas del hamburguesa (blanco/gris) */
+    margin: 5px 0;
+    transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    border-radius: 1px;
+    position: absolute;
+    left: 0;
+}
+
+.nav-toggle span:nth-child(1) {
+    top: 0;
+}
+
+.nav-toggle span:nth-child(2) {
+    top: 9.5px;
+}
+
+.nav-toggle span:nth-child(3) {
+    bottom: 0;
+}
+
+
+/* --- Media Queries (ajustar padding-top de main y colores de menú móvil) --- */
+
+@media (max-width: 768px) {
+    .app-header {
+        padding: 12px 25px;
+        /* Altura header tablet: (2*12px) + 24px logo = ~48px. AJUSTA padding-top de main. */
+    }
+    .logo {
+        font-size: 24px;
+    }
+    .nav-toggle {
+        display: block;
+    }
+    .main-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(8, 8, 8, 0.98);
+        /* Fondo overlay menú MÁS OSCURO */
+        padding: 70px 20px 40px;
+        /* Ajustar padding-top según altura header móvil */
+        box-sizing: border-box;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.645, 0.045, 0.355, 1);
+        z-index: 1000;
+        gap: 15px;
+    }
+    .app-header.nav-open .main-nav {
+        transform: translateX(0);
+    }
+    .main-nav a {
+        font-size: 18px;
+        margin-left: 0;
+        padding: 12px 20px;
+        width: 80%;
+        max-width: 300px;
+        text-align: center;
+        border-radius: 5px;
+    }
+    .main-nav a:hover,
+    .main-nav a.active {
+        color: #080808;
+        /* Texto oscuro para contraste con fondo rojo/naranja */
+        background-color: #ff0000;
+        /* Fondo de acento */
+    }
+    .main-nav a::after {
+        display: none;
+    }
+    .app-header.nav-open .nav-toggle span:nth-child(1) {
+        transform: translateY(9.5px) rotate(45deg);
+    }
+    .app-header.nav-open .nav-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+    .app-header.nav-open .nav-toggle span:nth-child(3) {
+        transform: translateY(-9.5px) rotate(-45deg);
+    }
+    main {
+        /* Altura header tablet ~48px. (padding-top: 12px*2 + font-size logo 24px) */
+        padding-top: 60px;
+        /* EJEMPLO, AJUSTA ESTO PRECISAMENTE */
+    }
+    .page-section {
+        padding: 40px 20px;
+        min-height: auto;
+    }
+    #home-section {
+        min-height: calc(100vh - 60px);
+        /* EJEMPLO, AJUSTA 60px */
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-header {
+        padding: 10px 15px;
+        /* Altura header móvil pequeño: (2*10px) + 22px logo = ~42px. AJUSTA padding-top de main. */
+    }
+    .logo {
+        font-size: 22px;
+    }
+    .nav-toggle {
+        width: 28px;
+        height: 20px;
+    }
+    .nav-toggle span {
+        margin: 4.5px 0;
+    }
+    .app-header.nav-open .nav-toggle span:nth-child(1) {
+        transform: translateY(7.5px) rotate(45deg);
+    }
+    .app-header.nav-open .nav-toggle span:nth-child(3) {
+        transform: translateY(-7.5px) rotate(-45deg);
+    }
+    main {
+        padding-top: 52px;
+        /* EJEMPLO, AJUSTA ESTO PRECISAMENTE */
+    }
+    .page-section {
+        padding: 30px 15px;
+    }
+    #home-section {
+        min-height: calc(100vh - 52px);
+        /* EJEMPLO, AJUSTA 52px */
+    }
+    .main-nav {
+        padding-top: 60px;
+        /* Espacio para el header más pequeño */
+    }
+    .main-nav a {
+        font-size: 17px;
+        padding: 10px 15px;
+    }
+}

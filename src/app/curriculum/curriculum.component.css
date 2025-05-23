@@ -1,0 +1,325 @@
+/* src/app/curriculum/curriculum.component.css */
+
+:host {
+    --timeline-color: #ff0000;
+    /* Color de acento (rojo/naranja como en la imagen) */
+    --timeline-line-color: #4a4a4a;
+    /* Un gris oscuro para la línea, como en la imagen */
+    --timeline-card-bg: #e73c3c;
+    /* Color de fondo de las tarjetas (rojo/naranja) */
+    /* Si quieres un rojo un poco más oscuro que el acento: */
+    /* --timeline-card-bg: #D35400; */
+    --timeline-icon-bg: var(--timeline-color);
+    --timeline-icon-color: #FFFFFF;
+    --timeline-text-color: #FFFFFF;
+    /* Texto dentro de las tarjetas */
+    --timeline-title-color: #FFFFFF;
+    /* Título de cada item en la tarjeta */
+    --page-background-color: #000000;
+    /* Fondo negro de la página */
+}
+
+.cv-container-alt {
+    /* Renombrado para evitar conflicto con otro .cv-container */
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    color: var(--timeline-text-color);
+    /* No se usa mucho aquí, el color está en las tarjetas */
+}
+
+.section-title {
+    /* "MY EDUCATION & EXPERIENCE" */
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.timeline-alt {
+    position: relative;
+    padding: 20px 0;
+}
+
+
+/* Línea central vertical */
+
+.timeline-alt::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    /* Desde el inicio */
+    bottom: 0;
+    /* Hasta el final */
+    width: 3px;
+    /* Grosor de la línea, ajusta si es necesario */
+    background-color: var(--timeline-line-color);
+    z-index: 0;
+    /* Detrás de los iconos */
+}
+
+.timeline-item-alt {
+    position: relative;
+    margin-bottom: 40px;
+    /* Espacio entre items */
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.timeline-item-alt:last-child {
+    margin-bottom: 0;
+}
+
+
+/* Posicionamiento de items a izquierda y derecha */
+
+.left-item {
+    padding-right: 35px;
+    /* Espacio para la cola y el icono */
+    left: 0;
+}
+
+.right-item {
+    padding-left: 35px;
+    /* Espacio para la cola y el icono */
+    left: 50%;
+}
+
+.timeline-icon {
+    position: absolute;
+    top: 15px;
+    /* Ajustar para alinear verticalmente con la "cola" */
+    width: 36px;
+    /* Tamaño del círculo del icono */
+    height: 36px;
+    background-color: var(--timeline-icon-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    border: 3px solid var(--page-background-color);
+    /* Borde del color de fondo de página */
+    box-shadow: 0 0 8px rgba(var(--timeline-color-rgb, 255, 69, 0), 0.4);
+    /* Ligero brillo al icono */
+    transition: transform 0.3s ease-out;
+    /* Para el hover opcional del icono */
+}
+
+.timeline-icon svg {
+    width: 18px;
+    /* Tamaño del SVG dentro del círculo */
+    height: 18px;
+    fill: var(--timeline-icon-color);
+}
+
+.left-item .timeline-icon {
+    right: -18px;
+    /* Mitad del ancho del icono (36px/2) para centrarlo en la línea */
+}
+
+.right-item .timeline-icon {
+    left: -18px;
+    /* Mitad del ancho del icono */
+}
+
+.timeline-content-alt {
+    background-color: var(--timeline-card-bg);
+    padding: 18px 22px;
+    /* Padding interno de la tarjeta */
+    border-radius: 6px;
+    /* Bordes redondeados de la tarjeta */
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    /* Sombra base sutil */
+    z-index: 1;
+    /* Para que esté encima de la línea pero debajo del icono en hover */
+    /* AÑADIR TRANSICIÓN PARA EL EFECTO HOVER */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+
+/* Cola/Flecha de la tarjeta */
+
+.timeline-content-alt::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    /* Alinear con el centro vertical del icono (36px/2 + borde 3px - alto_cola/2) -> 18 + 3 - 10 = 11px. Ajustar este valor. */
+    /* Si el icono tiene top: 15px, y alto 36px, su centro está en 15+18=33px.
+                   La cola debe salir de ese punto. Si la cola es de 20px de alto, su centro es 10px.
+                   top: 33px - 10px = 23px (aproximado) */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    z-index: 1;
+    /* Para que esté encima de la tarjeta base pero debajo del icono */
+}
+
+.left-item .timeline-content-alt {
+    text-align: left;
+}
+
+.left-item .timeline-content-alt::before {
+    /* Cola a la derecha */
+    right: -10px;
+    /* Ancho de la cola */
+    border-width: 10px 0 10px 10px;
+    /* Triángulo apuntando a la izquierda */
+    border-color: transparent transparent transparent var(--timeline-card-bg);
+}
+
+.right-item .timeline-content-alt {
+    text-align: left;
+}
+
+.right-item .timeline-content-alt::before {
+    /* Cola a la izquierda */
+    left: -10px;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent var(--timeline-card-bg) transparent transparent;
+}
+
+
+/* --- EFECTO HOVER PARA LA TARJETA --- */
+
+.timeline-item-alt:hover .timeline-content-alt {
+    transform: translateY(-6px) scale(1.015);
+    /* Mover un poco y escalar ligeramente */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), /* Sombra base más pronunciada */
+    0 0 12px rgba(var(--timeline-color-rgb, 255, 69, 0), 0.25);
+    /* Brillo sutil del color de acento */
+    z-index: 3;
+    /* Asegurar que la tarjeta en hover esté por encima de otras */
+}
+
+
+/* Opcional: Hacer que el icono también reaccione */
+
+.timeline-item-alt:hover .timeline-icon {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(var(--timeline-color-rgb, 255, 69, 0), 0.6);
+}
+
+.timeline-content-alt h3 {
+    /* Título del item, ej "High School" */
+    font-size: 1.1rem;
+    /* Ajustar tamaño */
+    color: var(--timeline-title-color);
+    margin-top: 0;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.timeline-content-alt p {
+    /* Descripción */
+    font-size: 0.85rem;
+    /* Ajustar tamaño */
+    line-height: 1.5;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    /* Texto un poco menos brillante */
+}
+
+
+/* --- Media Queries para Responsividad del Currículum --- */
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 40px;
+    }
+    .timeline-alt::before {
+        /* Línea central se mueve a la izquierda */
+        left: 18px;
+        /* (mitad del ancho del icono: 36px/2) */
+        transform: translateX(0);
+        top: 5px;
+        /* Que comience más arriba, cerca del primer icono */
+    }
+    .timeline-item-alt {
+        width: 100%;
+        padding-left: 50px;
+        /* Espacio a la izquierda para el icono y la cola */
+        padding-right: 0;
+        left: 0 !important;
+        /* Forzar todos los items a la izquierda */
+        margin-bottom: 30px;
+    }
+    .left-item .timeline-icon,
+    /* Icono siempre a la izquierda */
+    .right-item .timeline-icon {
+        left: 0px;
+        /* Alineado con el inicio del padding-left del item */
+        top: 0px;
+        /* Alinear con el inicio de la tarjeta */
+    }
+    .left-item .timeline-content-alt::before,
+    /* Cola siempre a la izquierda */
+    .right-item .timeline-content-alt::before {
+        left: -10px;
+        /* Ancho de la cola */
+        right: auto;
+        top: 13px;
+        /* (alto_icono/2 + borde_icono - alto_cola/2) = 18+3-10 = 11px. Ajustar! */
+        border-width: 10px 10px 10px 0;
+        border-color: transparent var(--timeline-card-bg) transparent transparent;
+    }
+    .timeline-content-alt {
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.75rem;
+    }
+    .timeline-alt::before {
+        left: 15px;
+        /* Un poco menos de espacio para la línea */
+        width: 3px;
+        /* Línea más delgada */
+    }
+    .timeline-item-alt {
+        padding-left: 40px;
+        /* Menos espacio a la izquierda */
+        margin-bottom: 25px;
+    }
+    .timeline-icon {
+        width: 30px;
+        height: 30px;
+        top: 0px;
+        /* Alinear con la parte superior de la tarjeta */
+        border-width: 2px;
+    }
+    .timeline-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+    .left-item .timeline-icon,
+    .right-item .timeline-icon {
+        left: -1px;
+        /* Ajustar para centrar el icono en la línea */
+    }
+    .timeline-content-alt {
+        padding: 15px 18px;
+    }
+    .timeline-content-alt::before {
+        /* Cola */
+        top: 10px;
+        /* Ajustar para el icono más pequeño */
+        border-width: 8px 8px 8px 0;
+        left: -8px;
+    }
+    .timeline-content-alt h3 {
+        font-size: 1rem;
+    }
+    .timeline-content-alt p {
+        font-size: 0.8rem;
+    }
+}

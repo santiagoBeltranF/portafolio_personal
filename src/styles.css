@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: #2C3A47;
+    /* Dark grayish blue, similar to image background */
+    /* For a blurred background image like in the example:
+  background-image: url('assets/your-blurred-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  */
+    color: #f0f0f0;
+    /* Default light text color */
+    line-height: 1.6;
+}

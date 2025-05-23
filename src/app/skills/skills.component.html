@@ -1,0 +1,95 @@
+<!-- src/app/skills/skills.component.html -->
+<div class="skills-section-container">
+    <h2 class="section-title">Mis Habilidades</h2>
+
+    <div class="skill-categories-wrapper">
+        <!-- Nuevo contenedor para las dos columnas principales -->
+
+        <!-- COLUMNA DE FRONTEND SKILLS -->
+        <div class="skill-group-column">
+            <h3 class="skill-group-title">Frontend Skills</h3>
+            <div class="skill-cards-grid">
+                <!-- Cuadrícula para las tarjetas DENTRO de esta columna -->
+                <div class="skill-card">
+                    <h4 class="skill-card-title">JAVASCRIPT</h4>
+                    <!-- Cambiado h3 a h4 para el título de la skill -->
+                    <div class="skill-chart-container">
+                        <svg class="skill-chart" viewBox="0 0 36 36">
+                            <path class="chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="chart-value javascript-value" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" data-level="75" />
+                        </svg>
+                        <div class="chart-text">
+                            <span class="level-text">Avanzado</span>
+                            <span class="potential-text">Potencial: Alto</span>
+                        </div>
+                    </div>
+                    <p class="skill-card-description">
+                        Experiencia sólida en ES6+, manipulación del DOM y frameworks modernos.
+                    </p>
+                </div>
+
+                <div class="skill-card">
+                    <h4 class="skill-card-title">HTML & CSS</h4>
+                    <div class="skill-chart-container">
+                        <svg class="skill-chart" viewBox="0 0 36 36">
+                             <path class="chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                             <path class="chart-value html-css-value" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" data-level="90" />
+                        </svg>
+                        <div class="chart-text">
+                            <span class="level-text">Experto</span>
+                            <span class="potential-text">Responsive Design</span>
+                        </div>
+                    </div>
+                    <p class="skill-card-description">
+                        Maquetación semántica, Flexbox, Grid, SASS y optimización.
+                    </p>
+                </div>
+                <!-- Añade más tarjetas de frontend skills aquí -->
+            </div>
+        </div>
+
+        <!-- COLUMNA DE BACKEND SKILLS -->
+        <div class="skill-group-column">
+            <h3 class="skill-group-title">Backend Skills</h3>
+            <div class="skill-cards-grid">
+                <!-- Cuadrícula para las tarjetas DENTRO de esta columna -->
+                <div class="skill-card">
+                    <h4 class="skill-card-title">PYTHON</h4>
+                    <div class="skill-chart-container">
+                        <svg class="skill-chart" viewBox="0 0 36 36">
+                            <path class="chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="chart-value python-value" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" data-level="85" />
+                        </svg>
+                        <div class="chart-text">
+                            <span class="level-text">Competente</span>
+                            <span class="potential-text">Proyectos Data Science</span>
+                        </div>
+                    </div>
+                    <p class="skill-card-description">
+                        Desarrollo backend con Django/Flask y análisis de datos con Pandas/NumPy.
+                    </p>
+                </div>
+
+                <div class="skill-card">
+                    <h4 class="skill-card-title">NODE.JS</h4>
+                    <div class="skill-chart-container">
+                        <svg class="skill-chart" viewBox="0 0 36 36">
+                            <path class="chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="chart-value nodejs-value" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" data-level="70" />
+                        </svg>
+                        <div class="chart-text">
+                            <span class="level-text">Intermedio</span>
+                            <span class="potential-text">APIs RESTful</span>
+                        </div>
+                    </div>
+                    <p class="skill-card-description">
+                        Construcción de APIs y microservicios con Express.js.
+                    </p>
+                </div>
+                <!-- Añade más tarjetas de backend skills aquí -->
+            </div>
+        </div>
+
+    </div>
+    <!-- Fin de .skill-categories-wrapper -->
+</div>
