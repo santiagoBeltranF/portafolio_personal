@@ -44,7 +44,7 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
 
   backendSkills: Skill[] = [
     {
-      title: 'SPRING (Java)',
+      title: 'Java',
       levelText: 'Intermedio',
       chartClass: 'java-value',
       dataLevel: 65
@@ -56,7 +56,7 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
       dataLevel: 85
     },
     {
-      title: 'NODE.JS (JavaScript)',
+      title: 'JavaScript',
       levelText: 'Intermedio',
       chartClass: 'nodejs-value',
       dataLevel: 70
