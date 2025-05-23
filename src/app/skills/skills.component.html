@@ -1,95 +1,86 @@
-<!-- src/app/skills/skills.component.html -->
 <div class="skills-section-container">
     <h2 class="section-title">Mis Habilidades</h2>
-
     <div class="skill-categories-wrapper">
-        <!-- Nuevo contenedor para las dos columnas principales -->
-
-        <!-- COLUMNA DE FRONTEND SKILLS -->
-        <div class="skill-group-column">
+        <div class="skill-group-column frontend-skills-column">
             <h3 class="skill-group-title">Frontend Skills</h3>
-            <div class="skill-cards-grid">
-                <!-- Cuadrícula para las tarjetas DENTRO de esta columna -->
-                <div class="skill-card">
-                    <h4 class="skill-card-title">JAVASCRIPT</h4>
-                    <!-- Cambiado h3 a h4 para el título de la skill -->
-                    <div class="skill-chart-container">
-                        <svg class="skill-chart" viewBox="0 0 36 36">
-                            <path class="chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                            <path class="chart-value javascript-value" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" data-level="75" />
-                        </svg>
-                        <div class="chart-text">
-                            <span class="level-text">Avanzado</span>
-                            <span class="potential-text">Potencial: Alto</span>
+            <div class="frontend-carousel-container" *ngIf="frontendSkills.length > 0">
+                <div class="frontend-carousel-track" [style.transform]="getFrontendCarouselTransform()">
+                    <div class="frontend-carousel-slide" *ngFor="let skill of frontendSkills; let i = index">
+                        <div class="skill-card">
+                            <h4 class="skill-card-title">{{ skill.title }}</h4>
+                            <div class="skill-chart-container">
+                                <svg class="skill-chart" viewBox="0 0 36 36">
+                                    <path class="chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path class="chart-value" [ngClass]="skill.chartClass" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" [attr.data-level]="skill.dataLevel" />
+                                </svg>
+                                <div class="chart-text">
+                                    <span class="level-text">{{ skill.levelText }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <p class="skill-card-description">
-                        Experiencia sólida en ES6+, manipulación del DOM y frameworks modernos.
-                    </p>
                 </div>
 
-                <div class="skill-card">
-                    <h4 class="skill-card-title">HTML & CSS</h4>
-                    <div class="skill-chart-container">
-                        <svg class="skill-chart" viewBox="0 0 36 36">
-                             <path class="chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                             <path class="chart-value html-css-value" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" data-level="90" />
-                        </svg>
-                        <div class="chart-text">
-                            <span class="level-text">Experto</span>
-                            <span class="potential-text">Responsive Design</span>
-                        </div>
+                <ng-container *ngIf="frontendSkills.length > 1">
+                    <button class="carousel-nav prev" (click)="prevFrontendSkill()" aria-label="Anterior skill de frontend">
+                        <
+                    </button>
+                    <button class="carousel-nav next" (click)="nextFrontendSkill()" aria-label="Siguiente skill de frontend">
+                        >
+                    </button>
+                    <div class="carousel-dots">
+                        <span *ngFor="let skill of frontendSkills; let i = index"
+                              class="dot"
+                              [class.active]="i === currentFrontendSkillIndex"
+                              (click)="goToFrontendSkill(i)"
+                              [attr.aria-label]="'Ir a skill de frontend ' + (i + 1)"></span>
                     </div>
-                    <p class="skill-card-description">
-                        Maquetación semántica, Flexbox, Grid, SASS y optimización.
-                    </p>
-                </div>
-                <!-- Añade más tarjetas de frontend skills aquí -->
+                </ng-container>
+            </div>
+            <div *ngIf="frontendSkills.length === 0" class="no-skills-message">
+                <p>No hay habilidades de frontend para mostrar.</p>
             </div>
         </div>
 
-        <!-- COLUMNA DE BACKEND SKILLS -->
-        <div class="skill-group-column">
+        <div class="skill-group-column backend-skills-column">
             <h3 class="skill-group-title">Backend Skills</h3>
-            <div class="skill-cards-grid">
-                <!-- Cuadrícula para las tarjetas DENTRO de esta columna -->
-                <div class="skill-card">
-                    <h4 class="skill-card-title">PYTHON</h4>
-                    <div class="skill-chart-container">
-                        <svg class="skill-chart" viewBox="0 0 36 36">
-                            <path class="chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                            <path class="chart-value python-value" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" data-level="85" />
-                        </svg>
-                        <div class="chart-text">
-                            <span class="level-text">Competente</span>
-                            <span class="potential-text">Proyectos Data Science</span>
+            <div class="backend-carousel-container" *ngIf="backendSkills.length > 0">
+                <div class="backend-carousel-track" [style.transform]="getBackendCarouselTransform()">
+                    <div class="backend-carousel-slide" *ngFor="let skill of backendSkills; let i = index">
+                        <div class="skill-card">
+                            <h4 class="skill-card-title">{{ skill.title }}</h4>
+                            <div class="skill-chart-container">
+                                <svg class="skill-chart" viewBox="0 0 36 36">
+                                    <path class="chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path class="chart-value" [ngClass]="skill.chartClass" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" [attr.data-level]="skill.dataLevel" />
+                                </svg>
+                                <div class="chart-text">
+                                    <span class="level-text">{{ skill.levelText }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <p class="skill-card-description">
-                        Desarrollo backend con Django/Flask y análisis de datos con Pandas/NumPy.
-                    </p>
                 </div>
 
-                <div class="skill-card">
-                    <h4 class="skill-card-title">NODE.JS</h4>
-                    <div class="skill-chart-container">
-                        <svg class="skill-chart" viewBox="0 0 36 36">
-                            <path class="chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                            <path class="chart-value nodejs-value" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" data-level="70" />
-                        </svg>
-                        <div class="chart-text">
-                            <span class="level-text">Intermedio</span>
-                            <span class="potential-text">APIs RESTful</span>
-                        </div>
+                <ng-container *ngIf="backendSkills.length > 1">
+                    <button class="carousel-nav prev" (click)="prevBackendSkill()" aria-label="Anterior skill de backend">
+                        <
+                    </button>
+                    <button class="carousel-nav next" (click)="nextBackendSkill()" aria-label="Siguiente skill de backend">
+                        >
+                    </button>
+                    <div class="carousel-dots">
+                        <span *ngFor="let skill of backendSkills; let i = index"
+                              class="dot"
+                              [class.active]="i === currentBackendSkillIndex"
+                              (click)="goToBackendSkill(i)"
+                              [attr.aria-label]="'Ir a skill de backend ' + (i + 1)"></span>
                     </div>
-                    <p class="skill-card-description">
-                        Construcción de APIs y microservicios con Express.js.
-                    </p>
-                </div>
-                <!-- Añade más tarjetas de backend skills aquí -->
+                </ng-container>
+            </div>
+            <div *ngIf="backendSkills.length === 0" class="no-skills-message">
+                <p>No hay habilidades de backend para mostrar.</p>
             </div>
         </div>
-
     </div>
-    <!-- Fin de .skill-categories-wrapper -->
 </div>

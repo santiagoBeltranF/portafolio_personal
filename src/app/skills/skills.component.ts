@@ -1,5 +1,12 @@
-import { Component, ElementRef, QueryList, ViewChildren, AfterViewInit, OnDestroy, ChangeDetectorRef, inject } from '@angular/core';
+import { Component, ElementRef, AfterViewInit, OnDestroy, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+interface Skill {
+  title: string;
+  levelText: string;
+  chartClass: string;
+  dataLevel: number;
+}
 
 @Component({
   selector: 'app-skills',
@@ -9,46 +16,76 @@ import { CommonModule } from '@angular/common';
   styleUrl: './skills.component.css'
 })
 export class SkillsComponent implements AfterViewInit, OnDestroy {
-  // Usaremos una referencia para cada tarjeta para el IntersectionObserver
-  @ViewChildren(ElementRef) skillCardElements!: QueryList<ElementRef<HTMLDivElement>>;
-  // O más específicamente si todas las tarjetas tienen una clase común, ej .skill-card
-  // @ViewChildren('.skill-card') skillCards!: QueryList<ElementRef<HTMLDivElement>>;
-
-
-  private observers: IntersectionObserver[] = []; // Un observer por tarjeta
+  private observers: IntersectionObserver[] = [];
   private hasAnimated = new Set<HTMLElement>();
-
-  private hostElementRef = inject(ElementRef); // Para observar toda la sección
+  private el = inject(ElementRef);
   private cdr = inject(ChangeDetectorRef);
 
-  // Se usará el ElementRef de cada .skill-card individualmente
-  constructor(private el: ElementRef) {}
+  frontendSkills: Skill[] = [
+    {
+      title: 'JAVASCRIPT',
+      levelText: 'Avanzado',
+      chartClass: 'javascript-value',
+      dataLevel: 75
+    },
+    {
+      title: 'HTML & CSS',
+      levelText: 'Experto',
+      chartClass: 'html-css-value',
+      dataLevel: 90
+    },
+    {
+      title: 'ANGULAR',
+      levelText: 'Intermedio',
+      chartClass: 'angular-value',
+      dataLevel: 70
+    }
+  ];
 
+  backendSkills: Skill[] = [
+    {
+      title: 'PYTHON',
+      levelText: 'Competente',
+      chartClass: 'python-value',
+      dataLevel: 85
+    },
+    {
+      title: 'NODE.JS',
+      levelText: 'Intermedio',
+      chartClass: 'nodejs-value',
+      dataLevel: 70
+    }
+  ];
+
+  currentFrontendSkillIndex = 0;
+  currentBackendSkillIndex = 0;
 
   ngAfterViewInit(): void {
-    // Dar tiempo para que los elementos estén en el DOM y se rendericen
     setTimeout(() => {
-        // Usaremos el el.nativeElement como root para observar items dentro de la sección
         const sectionElement = this.el.nativeElement.querySelector('.skills-section-container');
         if (sectionElement) {
             this.initIntersectionObserverForSection(sectionElement);
         } else {
-            // Fallback si el contenedor de sección no se encuentra, observar el host
             this.initIntersectionObserverForSection(this.el.nativeElement);
         }
+        this.cdr.detectChanges();
+        this.triggerAnimationForVisibleFrontendSlide();
+        this.triggerAnimationForVisibleBackendSlide();
     }, 150);
   }
 
   private initIntersectionObserverForSection(sectionElement: HTMLElement): void {
     const skillCards = sectionElement.querySelectorAll('.skill-card');
-
     const cardOptions = {
-      root: null, // Viewport
-      rootMargin: '0px 0px -10% 0px', // Activar cuando el 10% inferior de la tarjeta entra en vista
-      threshold: 0.1 // Activar cuando el 10% de la tarjeta es visible
+      root: null,
+      rootMargin: '0px 0px -10% 0px',
+      threshold: 0.1
     };
 
     skillCards.forEach(card => {
+      if (this.observers.some(obsEntry => obsEntry.takeRecords().some(record => record.target === card))) {
+        return;
+      }
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting && !this.hasAnimated.has(entry.target as HTMLElement)) {
@@ -56,31 +93,113 @@ export class SkillsComponent implements AfterViewInit, OnDestroy {
             if (chartValuePath) {
               this.animateChart(chartValuePath);
               this.hasAnimated.add(entry.target as HTMLElement);
-              observer.unobserve(entry.target); // Dejar de observar esta tarjeta
             }
           }
         });
       }, cardOptions);
       observer.observe(card);
-      this.observers.push(observer); // Guardar para limpiar en ngOnDestroy
+      this.observers.push(observer);
     });
   }
 
-
   private animateChart(pathElement: SVGPathElement): void {
     const level = parseInt(pathElement.getAttribute('data-level') || '0', 10);
-    const radius = 15.9155; // Mismo radio que en el atributo 'd' del path
+    const radius = 15.9155;
     const circumference = 2 * Math.PI * radius;
-
     const offset = circumference - (level / 100) * circumference;
 
-    // Forzar reflow antes de aplicar la transición para asegurar que se anime desde 0
     pathElement.style.strokeDasharray = `${circumference} ${circumference}`;
-    pathElement.style.strokeDashoffset = `${circumference}`; // Inicia "vacío"
+    pathElement.style.strokeDashoffset = `${circumference}`;
 
     requestAnimationFrame(() => {
       pathElement.style.strokeDashoffset = `${offset}`;
     });
+  }
+
+  nextFrontendSkill(): void {
+    if (this.currentFrontendSkillIndex < this.frontendSkills.length - 1) {
+      this.currentFrontendSkillIndex++;
+    } else {
+      this.currentFrontendSkillIndex = 0; 
+    }
+    this.triggerAnimationForVisibleFrontendSlide();
+  }
+
+  prevFrontendSkill(): void {
+    if (this.currentFrontendSkillIndex > 0) {
+      this.currentFrontendSkillIndex--;
+    } else {
+      this.currentFrontendSkillIndex = this.frontendSkills.length - 1; 
+    }
+    this.triggerAnimationForVisibleFrontendSlide();
+  }
+
+  goToFrontendSkill(index: number): void {
+    this.currentFrontendSkillIndex = index;
+    this.triggerAnimationForVisibleFrontendSlide();
+  }
+
+  getFrontendCarouselTransform(): string {
+    return `translateX(-${this.currentFrontendSkillIndex * 100}%)`;
+  }
+
+  private triggerAnimationForVisibleFrontendSlide(): void {
+    setTimeout(() => {
+      const trackElement = this.el.nativeElement.querySelector('.frontend-carousel-track');
+      if (trackElement && trackElement.children[this.currentFrontendSkillIndex]) {
+        const visibleSlideCard = trackElement.children[this.currentFrontendSkillIndex].querySelector('.skill-card');
+        if (visibleSlideCard && !this.hasAnimated.has(visibleSlideCard as HTMLElement)) {
+          const chartValuePath = visibleSlideCard.querySelector('.chart-value') as SVGPathElement | null;
+          if (chartValuePath) {
+            this.animateChart(chartValuePath);
+            this.hasAnimated.add(visibleSlideCard as HTMLElement);
+          }
+        }
+      }
+    }, 50);
+  }
+
+  nextBackendSkill(): void {
+    if (this.currentBackendSkillIndex < this.backendSkills.length - 1) {
+      this.currentBackendSkillIndex++;
+    } else {
+      this.currentBackendSkillIndex = 0;
+    }
+    this.triggerAnimationForVisibleBackendSlide();
+  }
+
+  prevBackendSkill(): void {
+    if (this.currentBackendSkillIndex > 0) {
+      this.currentBackendSkillIndex--;
+    } else {
+      this.currentBackendSkillIndex = this.backendSkills.length - 1;
+    }
+    this.triggerAnimationForVisibleBackendSlide();
+  }
+
+  goToBackendSkill(index: number): void {
+    this.currentBackendSkillIndex = index;
+    this.triggerAnimationForVisibleBackendSlide();
+  }
+
+  getBackendCarouselTransform(): string {
+    return `translateX(-${this.currentBackendSkillIndex * 100}%)`;
+  }
+
+  private triggerAnimationForVisibleBackendSlide(): void {
+    setTimeout(() => {
+      const trackElement = this.el.nativeElement.querySelector('.backend-carousel-track');
+      if (trackElement && trackElement.children[this.currentBackendSkillIndex]) {
+        const visibleSlideCard = trackElement.children[this.currentBackendSkillIndex].querySelector('.skill-card');
+        if (visibleSlideCard && !this.hasAnimated.has(visibleSlideCard as HTMLElement)) {
+          const chartValuePath = visibleSlideCard.querySelector('.chart-value') as SVGPathElement | null;
+          if (chartValuePath) {
+            this.animateChart(chartValuePath);
+            this.hasAnimated.add(visibleSlideCard as HTMLElement);
+          }
+        }
+      }
+    }, 50);
   }
 
   ngOnDestroy(): void {
